@@ -55,16 +55,21 @@ class QuoteSearcher extends Component {
           <AddQuote addQuote={this.addQuote} />
         </div>
         <h1> QUOTES </h1>
+        <h3>Total: {this.state.quotes.length}</h3>
         <div className="quotes">
-          {this.state.quotes.map(quote => (
-            <Quote
-              quoteText={quote.quoteText}
-              quoteAuthor={quote.quoteAuthor}
-              key={quote._id}
-              id={quote._id}
-              setLikedness={this.setLikedness}
-            />
-          ))}
+          {this.state.quotes
+            .filter(quote => {
+              return quote.quoteAuthor !== "";
+            })
+            .map(quote => (
+              <Quote
+                quoteText={quote.quoteText}
+                quoteAuthor={quote.quoteAuthor}
+                key={quote._id}
+                id={quote._id}
+                setLikedness={this.setLikedness}
+              />
+            ))}
         </div>
       </div>
     );
