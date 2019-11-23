@@ -4,7 +4,8 @@ import Quote from "./Quote";
 class QuoteSearcher extends Component {
   state = {
     quotes: [],
-    fetching: false
+    fetching: false,
+    likedness: false
   };
 
   componentDidMount() {
@@ -16,6 +17,15 @@ class QuoteSearcher extends Component {
       })
       .catch(console.error);
   }
+
+  // CALLBACK PROPS
+  setLikedness = id => {
+    this.setState({
+      quotes: this.state.quotes.map(quote =>
+        quote.id === id ? { ...quote, likedness: true } : quote
+      )
+    });
+  };
 
   render() {
     if (!this.state.fetching) {
@@ -31,6 +41,8 @@ class QuoteSearcher extends Component {
               quoteText={quote.quoteText}
               quoteAuthor={quote.quoteAuthor}
               key={quote._id}
+              id={quote._id}
+              setLikedness={this.setLikedness}
             />
           ))}
         </div>

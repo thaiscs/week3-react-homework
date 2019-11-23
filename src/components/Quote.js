@@ -16,6 +16,18 @@ class Quote extends Component {
     this.setState({ color: color });
   };
 
+  handleClick = () => {
+    console.log("quoteId", this.props);
+    if (this.likedQuote) {
+      this.setState({ color: "pink" });
+      this.props.setLikedness(this.props.id);
+    }
+    if (this.dislikedQuote) {
+      this.setState({ color: "pink" });
+      this.props.setLikedness(this.props.id);
+    }
+  };
+
   render() {
     return (
       <div className="quotes-presentation">
@@ -34,6 +46,7 @@ class Quote extends Component {
         <button onClick={() => this.dislikedQuote("red", "line-through")}>
           :(
         </button>
+        <button onClick={this.handleClick}>Handel Click</button>
       </div>
     );
   }
