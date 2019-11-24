@@ -3,29 +3,23 @@ import React, { Component } from "react";
 class Quote extends Component {
   state = {
     color: "black",
-    textDecoration: ""
+    textDecoration: "",
+    liked: 0,
+    disliked: 0
   };
 
-  dislikedQuote = (color, textDecoration) => {
-    // console.log("TESTING");
-    this.setState({ color: color, textDecoration: textDecoration });
+  likedQuote = () => {
+    this.setState({ color: "pink", liked: this.state.liked + 1 });
+    this.props.setLikedness(this.props.id);
   };
 
-  likedQuote = color => {
-    // console.log("TESTING");
-    this.setState({ color: color });
-  };
-
-  handleClick = () => {
-    console.log("quoteId", this.props);
-    if (this.likedQuote) {
-      this.setState({ color: "pink" });
-      this.props.setLikedness(this.props.id);
-    }
-    if (this.dislikedQuote) {
-      this.setState({ color: "pink" });
-      this.props.setLikedness(this.props.id);
-    }
+  dislikedQuote = () => {
+    this.setState({
+      color: "red",
+      textDecoration: "line-through",
+      disliked: this.state.disliked + 1
+    });
+    this.props.setLikedness(this.props.id);
   };
 
   render() {
@@ -42,11 +36,8 @@ class Quote extends Component {
         <p>
           <strong>By: {this.props.quoteAuthor}</strong>
         </p>
-        <button onClick={() => this.likedQuote("pink")}>:)</button>
-        <button onClick={() => this.dislikedQuote("red", "line-through")}>
-          :(
-        </button>
-        <button onClick={this.handleClick}>Handel Click</button>
+        <button onClick={() => this.likedQuote()}>:)</button>
+        <button onClick={() => this.dislikedQuote()}>:(</button>
       </div>
     );
   }

@@ -20,7 +20,9 @@ class QuoteSearcher extends Component {
 
   addQuote = quote => {
     // console.log("Hi from addQuote:", quote);
-
+    if (this.state.fetching) {
+      this.setState({ fetching: false });
+    }
     fetch(
       `https://quote-garden.herokuapp.com/quotes/search/${encodeURIComponent(
         quote
@@ -29,7 +31,7 @@ class QuoteSearcher extends Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          ...this.state,
+          fetching: true,
           quotes: json.results
         });
       })
